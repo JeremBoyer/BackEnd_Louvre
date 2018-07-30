@@ -1,0 +1,25 @@
+
+
+
+
+body {
+    /* BackGround image from DBUK on pixabay*/
+    background: url('../image/louvre-grande-galerie-aile-denon.jpg');
+    background-image: url("../image/louvre-grande-galerie-aile-denon.jpg");
+    background-position-x: 50%;
+    background-position-y: 0px;
+    background-size: initial;
+    background-repeat-x: repeat;
+    background-repeat-y: no-repeat;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: initial;
+}
+
+.subtlePatterns {
+    /* Background pattern from Toptal Subtle Patterns */
+    background: url('../image/oriental.png');
+    background-image: url("../image/oriental.png");
+}
+
