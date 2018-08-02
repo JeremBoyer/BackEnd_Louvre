@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container">>
+        <h1 class="text-center text-dark">Billetterie </h1>
+
+        <div class="row">
+            <div class="container">
+                <div class="d-flex justify-content-between">
+                    <h3 class="p-1 m-1">Votre commande :</h3>
+
+                    <a href="{{ path('create_ticket') }}" class="btn btn-info m-2">Ajouter un ticket</a>
+                </div>
+            </div>
+        </div>
+
+        <table class="table table-hover table-dark p-4">
+            <thead>
+            <tr>
+                <th scope="col">Numéro Ticket</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Date de naissance</th>
+                <th scope="col">Country</th>
+                <th scope="col">Date de la visite</th>
+                <th scope="col">Prix</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for tickets in app.session.get('tickets') %}
+                {% for key, ticket in tickets %}
+                    <tr>
+                        <th scope="row">{{ key }}</th>
+                        <td>{{ ticket.getName() }}</td>
+                        <td>{{ ticket.getFirstName() }}</td>
+                        <td>{{ ticket.getBirthDate()|date('d-M-y') }}</td>
+                        <td>{{ ticket.getCountry() }}</td>
+                        <td>{{ ticket.getVisitAt()|date('d-M-y') }}</td>
+                        <td>3 euros parce qu'il faut bien un prix</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="7"><h2 class="text-center">Votre commande est vide!</h2></td>
+                </tr>
+
+            {% endfor %}
+
+
+            </tbody>
+        </table>
+
+        <a class="btn btn-info btn-block mb-3" href="{{ path('create_ticket') }}">Ajouter un ticket</a>
+    </div>
+
+
+
+{% endblock %}
