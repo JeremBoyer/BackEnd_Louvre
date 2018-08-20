@@ -19,6 +19,12 @@ class Ticket
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=2,
+     *      max=255,
+     *     minMessage="Votre nom est trop court!",
+     *     maxMessage="Votre nom est trop long!"
+     * )
+     *
      */
     private $name;
 

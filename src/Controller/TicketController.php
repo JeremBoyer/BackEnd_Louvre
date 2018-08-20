@@ -6,9 +6,12 @@ use App\Entity\Ticket;
 use App\Form\TicketType;
 
 use App\Services\SessionService;
+use App\Services\TicketServices;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionBagInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -27,38 +30,38 @@ class TicketController extends Controller
     /**
      * @Route("/ticket/summary", name="ticket_summary")
      */
-    public function ticketSummary(Request $request, SessionService $sessionService)
+    public function ticketSummary(Request $request)
     {
-        //$ticketBags = $_SESSION['ticket'];
+        $session = new Session();
 
-        //dump($_SESSION['ticket']);
+        $test = $session->all();
 
+        dump($test);
         return $this->render('ticket/summary.html.twig');
     }
 
     /**
      * @Route("/ticket/create", name="create_ticket")
      */
-    public function create(Request $request, ObjectManager $manager, SessionService $sessionService, Session $session)
+    public function create(Request $request, TicketServices $ticketServices, Session $session)
     {
         $ticket = new Ticket();
 
         $form = $this->createForm(TicketType::class, $ticket);
 
+
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //$_SESSION['ticket'][] = array($ticket);
+            $ticketServices->priceType($ticket);
+
             $sessionTickets = $session->get('tickets');
 
-            $sessionTickets[] = [
-                uniqid() => $ticket
-            ];
+            $sessionTickets[uniqid()] = $ticket;
+
 
             $session->set('tickets', $sessionTickets);
-
-            //dump($request, $_SESSION['ticket'], $ticket, $session);
-            //die();
 
             return $this->redirectToRoute('ticket_summary');
         }
@@ -73,16 +76,36 @@ class TicketController extends Controller
      */
     public function reset(Session $session)
     {
-
+        $session->clear();
 
         return $this->redirectToRoute('ticket_summary');
     }
 
     /**
-     * @Route("/ticket/delete", name="delete_ticket")
+     * @Route("/ticket/delete/{ticketNumber}", name="delete_ticket")
      */
-    public function delete()
+    public function delete(Session $session, $ticketNumber)
     {
+        dump($session->get('tickets')[$ticketNumber]);
 
+        if (array_key_exists($ticketNumber, $session->get('tickets'))) {
+            $tickets = $session->get('tickets');
+            unset($tickets[$ticketNumber]);
+
+            $session->set('tickets', $tickets);
+        }
+//        foreach ($session->get('tickets') as $key => $value) {
+//            $session->get('tickets')[1]["5b7932f174532"];
+//            dump($session->get('tickets')[1][$key]);
+//            die();
+//            if (key($value) === $request->attributes->get("key")) {
+//                $session->remove();
+//                unset($_SESSION['_sf2_attributes']['tickets'][$key]);
+//                //$session->remove('tickets/' . $key);
+//                //dump($_SESSION, $test1);
+//            }
+//        }
+
+        return $this->redirectToRoute('ticket_summary');
     }
 }

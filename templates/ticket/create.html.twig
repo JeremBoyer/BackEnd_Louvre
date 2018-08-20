@@ -5,26 +5,28 @@
 {% block body %}
 
     <div class="container">
-        <h1 class="text-center">Billetterie </h1>
+        <h1 class="text-center text-primary">Billetterie </h1>
 
         <div class="row">
             <div class="col-md-3">
 
             </div>
             <div class="col-md-6">
-                {{ form_start(formTicket) }}
+                <div class="text-primary">
+                    {{ form_start(formTicket) }}
 
-                {{ form_row(formTicket.name, { 'attr': {'placeholder': "Nom du visiteur"}, 'label': "Nom"}) }}
-                {{ form_row(formTicket.firstName, { 'attr': {'placeholder': "Prénom du visiteur"}, 'label': "Prénom"}) }}
-                {{ form_row(formTicket.birthDate, { 'attr': {'placeholder': "Date d'anniversaire"}, 'format': "dd-MM-yyyy"}) }}
-                {{ form_row(formTicket.country, { 'attr': {'placeholder': "Pays"}}) }}
-                {{ form_row(formTicket.type, { 'label': "Possedez vous une carte de réduction?"}) }}
-                {{ form_row(formTicket.visitAt) }}
-                {{ form_row(formTicket.priceType, {"label": "Type de prix provisoire"}) }}
+                    {{ form_row(formTicket.name, { 'attr': {'placeholder': "Nom du visiteur"}, 'label': "Nom"}) }}
+                    {{ form_row(formTicket.firstName, { 'attr': {'placeholder': "Prénom du visiteur"}, 'label': "Prénom"}) }}
+                    {{ form_row(formTicket.birthDate, { 'label': "Date d'anniversaire", 'format': "dd-MM-yyyy", 'label_attr': {'class': "text-primary"}}) }}
+                    {{ form_row(formTicket.country, { 'attr': {'placeholder': "Pays"}}) }}
+                    {{ form_row(formTicket.type, { 'label': "Billet demi-jounée?"}) }}
+                    {{ form_row(formTicket.visitAt, {'label': "Date de la visite", 'label_attr': {'class': "text-primary"}}) }}
+                    {{ form_row(formTicket.priceType, {"label": "Possédez-vous une carte de réduction?"}) }}
 
-                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    <button type="submit" class="btn btn-primary btn-block">Enregistrer</button>
 
-                {{ form_end(formTicket) }}
+                    {{ form_end(formTicket) }}
+                </div>
             </div>
             <div class="col-md-3">
 

@@ -20,14 +20,17 @@ class TicketType extends AbstractType
             ->add('name')
             ->add('firstName')
             ->add('country', CountryType::class)
-            ->add('type', CheckboxType::class)
-            ->add('priceType', ChoiceType::class, array(
+            ->add('type', ChoiceType::class, array(
                 'choices' => array(
-                    '< 4 ans'          => 1,
-                    'entre 4 et 8ans'  => 2,
-                    'entre 8 et 12ans' => 3,
-                    '> 12ans '         => 5
-            )))
+                    'Non' => 1,
+                    'Oui' => 2
+                )
+            ))
+            ->add(
+                'priceType', CheckboxType::class, array(
+                    'required' => false,
+                )
+            )
             ->add('visitAt')
             ->add('birthDate', BirthdayType::class)
         ;
