@@ -20,7 +20,7 @@
                     {{ form_row(formTicket.birthDate, { 'label': "Date d'anniversaire", 'format': "dd-MM-yyyy", 'label_attr': {'class': "text-primary"}}) }}
                     {{ form_row(formTicket.country, { 'attr': {'placeholder': "Pays"}}) }}
                     {{ form_row(formTicket.type, { 'label': "Billet demi-jounée?"}) }}
-                    {{ form_row(formTicket.visitAt, {'label': "Date de la visite", 'label_attr': {'class': "text-primary"}}) }}
+                    {{ form_widget(formTicket.visitAt, { "value": {"year": 2019, "month": 10, "day": 10}, 'label': "Date de la visite", 'label_attr': {'class': "text-primary"}}) }}
                     {{ form_row(formTicket.priceType, {"label": "Possédez-vous une carte de réduction?"}) }}
 
                     <button type="submit" class="btn btn-primary btn-block">Enregistrer</button>

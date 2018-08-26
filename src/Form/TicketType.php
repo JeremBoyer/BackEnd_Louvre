@@ -16,6 +16,7 @@ class TicketType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $today = new \DateTime();
         $builder
             ->add('name')
             ->add('firstName')
@@ -31,8 +32,15 @@ class TicketType extends AbstractType
                     'required' => false,
                 )
             )
-            ->add('visitAt')
-            ->add('birthDate', BirthdayType::class)
+            ->add('visitAt', DateType::class, array(
+                'format' => "dd-MM-yyyy",
+                'placeholder' => array(
+                    'day' => $today->format('j'), 'month' => $today->format("m"), 'year' => $today->format("Y"),
+                )
+            ))
+            ->add('birthDate', BirthdayType::class, array(
+                'format' => "dd-MM-yyyy"
+            ))
         ;
     }
 

@@ -34,10 +34,8 @@
             </thead>
 
             <tbody>
-            {{ dump(app.session.get('tickets')) }}
             {% for key, ticket in app.session.get('tickets') %}
                 <tr>
-                    {{ dump(key) }}
                     <th scope="row">{{ key }}</th>
                     <td>{{ ticket.getName() }}</td>
                     <td>{{ ticket.getFirstName() }}</td>
@@ -58,6 +56,7 @@
 
 
             </tbody>
+
         </table>
 
 

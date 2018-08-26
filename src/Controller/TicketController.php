@@ -5,13 +5,11 @@ namespace App\Controller;
 use App\Entity\Ticket;
 use App\Form\TicketType;
 
-use App\Services\SessionService;
+use App\Repository\TicketRepository;
 use App\Services\TicketServices;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpFoundation\Session\SessionBagInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -30,13 +28,10 @@ class TicketController extends Controller
     /**
      * @Route("/ticket/summary", name="ticket_summary")
      */
-    public function ticketSummary(Request $request)
+    public function ticketSummary(Request $request, TicketServices $ticketServices)
     {
-        $session = new Session();
+        dump($ticketServices->countTickets($this->getDoctrine()->getRepository(Ticket::class)));
 
-        $test = $session->all();
-
-        dump($test);
         return $this->render('ticket/summary.html.twig');
     }
 
@@ -49,12 +44,11 @@ class TicketController extends Controller
 
         $form = $this->createForm(TicketType::class, $ticket);
 
-
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $ticketServices->priceType($ticket);
+            $ticketServices->halfDay($ticket);
 
             $sessionTickets = $session->get('tickets');
 
@@ -62,6 +56,11 @@ class TicketController extends Controller
 
 
             $session->set('tickets', $sessionTickets);
+
+            $this->addFlash(
+                'success',
+                'Vous avez ajouté un ticket!'
+            );
 
             return $this->redirectToRoute('ticket_summary');
         }
@@ -94,17 +93,6 @@ class TicketController extends Controller
 
             $session->set('tickets', $tickets);
         }
-//        foreach ($session->get('tickets') as $key => $value) {
-//            $session->get('tickets')[1]["5b7932f174532"];
-//            dump($session->get('tickets')[1][$key]);
-//            die();
-//            if (key($value) === $request->attributes->get("key")) {
-//                $session->remove();
-//                unset($_SESSION['_sf2_attributes']['tickets'][$key]);
-//                //$session->remove('tickets/' . $key);
-//                //dump($_SESSION, $test1);
-//            }
-//        }
 
         return $this->redirectToRoute('ticket_summary');
     }

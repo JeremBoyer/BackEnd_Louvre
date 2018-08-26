@@ -4,12 +4,19 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Validator\Constraints as AcmeAssert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TicketRepository")
  */
 class Ticket
 {
+    const PRICE_TYPE_REDUCTION = 1;
+    const PRICE_TYPE_BABY = 2;
+    const PRICE_TYPE_CHILD = 3;
+    const PRICE_TYPE_NORMAL = 4;
+    const PRICE_TYPE_SENIOR = 5;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -50,6 +57,7 @@ class Ticket
 
     /**
      * @ORM\Column(type="date")
+     * @AcmeAssert\OpeningDate
      */
     private $visitAt;
 
