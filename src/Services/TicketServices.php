@@ -2,12 +2,8 @@
 
 namespace App\Services;
 
-
 use App\Entity\Ticket;
-
 use App\Repository\TicketRepository;
-use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\Common\Persistence\ManagerRegistry;
 
 
 class TicketServices
@@ -42,12 +38,33 @@ class TicketServices
 
     public function halfDay(Ticket $ticket)
     {
-        $today = new  \DateTime();
-
-        if ($ticket->getVisitAt()->format("j:m:Y") === $today->format("j:m:Y") && $today->format("H") >= 14 )
+        if ($ticket->getVisitAt()->format("H") >= 14 )
         {
             $ticket->setType(2);
         }
+    }
+
+    public function price(Ticket $ticket)
+    {
+        if ($ticket->getPriceType() == Ticket::PRICE_TYPE_REDUCTION) {
+            $price = 1000;
+        } elseif ($ticket->getPriceType() == Ticket::PRICE_TYPE_BABY) {
+            $price = 0;
+        } elseif ($ticket->getPriceType() == Ticket::PRICE_TYPE_CHILD) {
+            $price = 800;
+        } elseif ($ticket->getPriceType() == Ticket::PRICE_TYPE_NORMAL) {
+            $price = 1600;
+        } elseif ($ticket->getPriceType() == Ticket::PRICE_TYPE_SENIOR) {
+            $price = 1200;
+        } else {
+            echo "erreur";
+        }
+
+        if ($ticket->getVisitAt()->format("H") >= 14) {
+            $price = $price/2;
+        }
+
+        return $price;
     }
 
 }

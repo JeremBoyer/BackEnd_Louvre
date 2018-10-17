@@ -8,7 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -32,12 +32,7 @@ class TicketType extends AbstractType
                     'required' => false,
                 )
             )
-            ->add('visitAt', DateType::class, array(
-                'format' => "dd-MM-yyyy",
-                'placeholder' => array(
-                    'day' => $today->format('j'), 'month' => $today->format("m"), 'year' => $today->format("Y"),
-                )
-            ))
+            ->add('visitAt', DateTimeType::class, array())
             ->add('birthDate', BirthdayType::class, array(
                 'format' => "dd-MM-yyyy"
             ))

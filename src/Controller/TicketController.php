@@ -6,6 +6,7 @@ use App\Entity\Ticket;
 use App\Form\TicketType;
 
 use App\Repository\TicketRepository;
+use App\Services\OrderServices;
 use App\Services\TicketServices;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,11 +29,28 @@ class TicketController extends Controller
     /**
      * @Route("/ticket/summary", name="ticket_summary")
      */
-    public function ticketSummary(Request $request, TicketServices $ticketServices)
+    public function ticketSummary(Request $request, TicketServices $ticketServices, Session $session, OrderServices $orderServices)
     {
-        dump($ticketServices->countTickets($this->getDoctrine()->getRepository(Ticket::class)));
+//        dump($ticketServices->countTickets($this->getDoctrine()->getRepository(Ticket::class)));
+        dump($request);
+        $total = 0;
+        if (!empty($session->get('tickets'))) {
+            $sessionTickets = $session->get('tickets');
+            foreach ($sessionTickets as $ticket) {
 
-        return $this->render('ticket/summary.html.twig');
+                $total = $ticketServices->price($ticket) + $total;
+            }
+        }
+
+        if (!empty($_POST['stripeToken'])) {
+
+            $orderServices->stripe($total);
+        }
+
+        return $this->render('ticket/summary.html.twig', [
+            'price' => $ticketServices,
+            'total' => $total
+        ]);
     }
 
     /**
@@ -49,6 +67,7 @@ class TicketController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $ticketServices->priceType($ticket);
             $ticketServices->halfDay($ticket);
+
 
             $sessionTickets = $session->get('tickets');
 

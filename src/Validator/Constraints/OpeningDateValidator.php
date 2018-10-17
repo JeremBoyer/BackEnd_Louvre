@@ -10,13 +10,16 @@ class OpeningDateValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         // TODO: Implement validate() method.
-        $publicHoliday = new \DateTime();
-        $today = $publicHoliday;
+        //$publicHoliday = new \DateTime();
+        $today = new \DateTime();
+        $toussaint = new \DateTime();
+        $laborDay = new \DateTime();
+        $christmas = new \DateTime();
 
-        $laborDay = $publicHoliday->setDate(null, 5, 1);
-        $toussaint = $publicHoliday->setDate(null, 11,1);
-        $christmas = $publicHoliday->setDate(null, 12, 25);
-
+        $laborDay = $laborDay->setDate(null, 5, 1);
+        $toussaint = $toussaint->setDate(null, 11,1);
+        $christmas = $christmas->setDate(null, 12, 25);
+        dump($value, $today, $christmas, $toussaint, $laborDay);
         if (null === $value || '' === $value) {
             return;
         }
