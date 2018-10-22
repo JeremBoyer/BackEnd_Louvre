@@ -32,9 +32,12 @@ class TicketType extends AbstractType
                     'required' => false,
                 )
             )
-            ->add('visitAt', DateTimeType::class, array())
+            ->add('visitAt', DateTimeType::class, array(
+                'label' => "Date de la visite",
+            ))
             ->add('birthDate', BirthdayType::class, array(
-                'format' => "dd-MM-yyyy"
+                'label' => "Date d'anniversaire",
+                "widget" => "single_text"
             ))
         ;
     }

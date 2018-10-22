@@ -21,15 +21,15 @@
 
                     {{ form_row(formTicket.name, { 'attr': {'placeholder': "Nom du visiteur"}, 'label': "Nom"}) }}
                     {{ form_row(formTicket.firstName, { 'attr': {'placeholder': "Prénom du visiteur"}, 'label': "Prénom"}) }}
-                    {{ form_row(formTicket.birthDate, { 'label': "Date d'anniversaire", 'format': "dd-MM-yyyy", 'label_attr': {'class': "text-primary"}}) }}
+                    {{ form_row(formTicket.birthDate, { 'attr': {'class': "birthday"}, 'label_attr': {'class': "text-primary"}}) }}
 
                     {{ form_row(formTicket.country, { 'attr': {'placeholder': "Pays"}, 'value': "France"}) }}
                     {{ form_row(formTicket.type, { 'label': "Billet demi-jounée?"}) }}
-                    {{ form_row(formTicket.visitAt, {'label': "Date de la visite", 'label_attr': {'class': "flatpickr flatpickr-input"}}) }}
+                    {{ form_row(formTicket.visitAt, { 'attr': {'class': "visit"}}) }}
                     {#{{ form_row(formTicket.visitAt, {"label": "Date de la visite", "attr": {"class": "flatpickr flatpickr-input", "type": "text"}}) }}#}
                     <label>Date de la Visite</label>
                     </br>
-                    <input class="flatpickr flatpickr-input" type="text" placeholder="Select Date.." data-id="minTime">
+                    <input class="flatpickr flatpickr-input birthDate" type="text" placeholder="Select Date.." data-id="minTime" >
                     {{ form_row(formTicket.priceType, {"label": "Possédez-vous une carte de réduction?"}) }}
 
                     <button type="submit" class="btn btn-primary btn-block">Enregistrer</button>
@@ -47,8 +47,7 @@
 {% block javascripts %}
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
-
-        $(".flatpickr").flatpickr({
+        $(".visit").flatpickr({
             enableTime: true,
             minTime: "09:00",
             minDate: "today",
@@ -69,6 +68,9 @@
 
             ],
 
+        });
+        $(".birthday").flatpickr({
+            maxDate: "today"
         });
     </script>
 {% endblock %}

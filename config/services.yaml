@@ -29,3 +29,10 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    App\Form\Extension\FlatpickrDateTimeTypeExtension:
+            tags:
+                - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\DateTimeType }
+    App\Form\Extension\FlatpickrBirthdayTypeExtension:
+                tags:
+                    - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\BirthdayType }
