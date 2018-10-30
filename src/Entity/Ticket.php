@@ -67,10 +67,10 @@ class Ticket
     private $birthDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Order", inversedBy="tickets")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Command", inversedBy="tickets")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $ordered;
+    private $command;
 
     public function getId()
     {
@@ -161,14 +161,14 @@ class Ticket
         return $this;
     }
 
-    public function getOrdered(): ?Order
+    public function getCommand(): Command
     {
-        return $this->ordered;
+        return $this->command;
     }
 
-    public function setOrdered(?Order $ordered): self
+    public function setCommand(Command $command): self
     {
-        $this->ordered = $ordered;
+        $this->command = $command;
 
         return $this;
     }

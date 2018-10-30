@@ -75,10 +75,11 @@
                     data-key="pk_test_mWgQQAPHImzZrSGV0J5xK9Nj"
                     data-amount="{{ total }}"
                     data-name="Paiement de la commande"
-                    data-description="Widget"
-                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                    data-description="{{ numberOfTickets }} tickets"
+                    data-image="{{ asset('image/mona-lisa.jpg') }}"
                     data-locale="auto"
-                    data-currency="eur">
+                    data-currency="eur"
+                    data-label="Paiement par carte">
             </script>
         </form>
     </div>

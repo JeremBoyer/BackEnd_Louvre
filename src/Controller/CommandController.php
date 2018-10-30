@@ -3,18 +3,18 @@
 namespace App\Controller;
 
 use App\Form\StripeType;
-use App\Services\OrderServices;
+use App\Services\CommandServices;
 use Stripe\Stripe;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class OrderController extends Controller
+class CommandController extends Controller
 {
     /**
-     * @Route("/order", name="order")
+     * @Route("/command", name="command")
      */
-    public function index(OrderServices $orderServices, Request $request)
+    public function index(CommandServices $commandServices, Request $request)
     {
 //
 // Token is created using Checkout or Elements!
@@ -47,12 +47,12 @@ class OrderController extends Controller
 //        dump($request, $charge, $customer);
         if (!empty($_POST['stripeToken'])) {
 
-            $orderServices->stripe();
+            $commandServices->stripe();
         }
 
 
-        return $this->render('order/index.html.twig', [
-            'controller_name' => 'OrderController',
+        return $this->render('command/index.html.twig', [
+            'controller_name' => 'CommandController',
         ]);
     }
 
@@ -62,6 +62,6 @@ class OrderController extends Controller
     public function charge(Request $request)
     {
 
-        return $this->render('order/index.html.twig');
+        return $this->render('command/index.html.twig');
     }
 }

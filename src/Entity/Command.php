@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\OrderRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\CommandRepository")
  */
-class Order
+class Command
 {
     /**
      * @ORM\Id()
@@ -26,7 +26,7 @@ class Order
     /**
      * @ORM\Column(type="datetime")
      */
-    private $orderAt;
+    private $commandAt;
 
     /**
      * @ORM\Column(type="integer")
@@ -39,7 +39,7 @@ class Order
     private $totalPrice;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Ticket", mappedBy="ordered", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Ticket", mappedBy="command", orphanRemoval=true)
      */
     private $tickets;
 
@@ -65,14 +65,14 @@ class Order
         return $this;
     }
 
-    public function getOrderAt(): ?\DateTimeInterface
+    public function getCommandAt(): ?\DateTimeInterface
     {
-        return $this->orderAt;
+        return $this->commandAt;
     }
 
-    public function setOrderAt(\DateTimeInterface $orderAt): self
+    public function setCommandAt(\DateTimeInterface $commandAt): self
     {
-        $this->orderAt = $orderAt;
+        $this->commandAt = $commandAt;
 
         return $this;
     }

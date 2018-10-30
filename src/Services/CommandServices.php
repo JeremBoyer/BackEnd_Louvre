@@ -5,13 +5,14 @@ namespace App\Services;
 
 use Stripe\StripeTest;
 use Stripe\Error\Card;
+use Stripe\Error\RateLimit;
+use Stripe\Error\Authentication;
+use Stripe\Error\ApiConnection;
+use Stripe\Error\Base;
 
-class OrderServices
+
+class CommandServices
 {
-    public function price()
-    {
-
-    }
 
     public function stripe($total)
     {
@@ -36,7 +37,10 @@ class OrderServices
             dump($charge);
 
 
-        } catch(\Stripe\Error\Card $e) {
+            return $charge;
+
+
+        } catch(Card $e) {
             // Since it's a decline, \Stripe\Error\Card will be caught
             $body = $e->getJsonBody();
             $err  = $body['error'];
@@ -47,24 +51,39 @@ class OrderServices
             // param is '' in this case
             print('Param is:' . $err['param'] . "\n");
             print('Message is:' . $err['message'] . "\n");
-        } catch (\Stripe\Error\RateLimit $e) {
+            dump($err, $body, $e);
+        } catch (RateLimit $e) {
+            $e = new RateLimit("Limite de temps dépassé. Assurez vous d'avoir une bonne connexion et réessayez. En cas de nouvel échec contactez le musée");
+
+            dump($e);
             // Too many requests made to the API too quickly
-        } catch (\Stripe\Error\InvalidRequest $e) {
+            return false;
+        } catch (InvalidRequest $e) {
+            $e = new RateLimit("Requete invalide");
+            dump($e);
             // Invalid parameters were supplied to Stripe's API
-        } catch (\Stripe\Error\Authentication $e) {
+            return false;
+        } catch (Authentication $e) {
             // Authentication with Stripe's API failed
+            dump($e);
             // (maybe you changed API keys recently)
-        } catch (\Stripe\Error\ApiConnection $e) {
+            return false;
+        } catch (ApiConnection $e) {
             // Network communication with Stripe failed
-        } catch (\Stripe\Error\Base $e) {
+            dump($e);
+            return false;
+        } catch (Base $e) {
+            dump($e);
             // Display a very generic error to the user, and maybe send
             // yourself an email
+            return false;
         } catch (Exception $e) {
             // Something else happened, completely unrelated to Stripe
+            dump($e);
+            return false;
         }
 
 
-        dump($charge, $customer);
     }
 
 }
