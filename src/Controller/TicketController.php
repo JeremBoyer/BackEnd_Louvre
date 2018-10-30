@@ -110,8 +110,6 @@ class TicketController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             
             $ticketServices->priceType($ticket);
-            $ticketServices->halfDay($ticket);
-
 
             $sessionTickets = $session->get('tickets');
 

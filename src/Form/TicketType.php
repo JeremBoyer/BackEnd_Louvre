@@ -21,12 +21,6 @@ class TicketType extends AbstractType
             ->add('name')
             ->add('firstName')
             ->add('country', CountryType::class)
-            ->add('type', ChoiceType::class, array(
-                'choices' => array(
-                    'Non' => 1,
-                    'Oui' => 2
-                )
-            ))
             ->add(
                 'priceType', CheckboxType::class, array(
                     'required' => false,

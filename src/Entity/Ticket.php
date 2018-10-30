@@ -48,11 +48,6 @@ class Ticket
     /**
      * @ORM\Column(type="integer")
      */
-    private $type;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
     private $priceType;
 
     /**
@@ -109,18 +104,6 @@ class Ticket
     public function setCountry(string $country): self
     {
         $this->country = $country;
-
-        return $this;
-    }
-
-    public function getType(): ?int
-    {
-        return $this->type;
-    }
-
-    public function setType(int $type): self
-    {
-        $this->type = $type;
 
         return $this;
     }

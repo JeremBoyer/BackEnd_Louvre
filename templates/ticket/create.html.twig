@@ -24,12 +24,8 @@
                     {{ form_row(formTicket.birthDate, { 'attr': {'class': "birthday"}, 'label_attr': {'class': "text-primary"}}) }}
 
                     {{ form_row(formTicket.country, { 'attr': {'placeholder': "Pays"}, 'value': "France"}) }}
-                    {{ form_row(formTicket.type, { 'label': "Billet demi-jounée?"}) }}
                     {{ form_row(formTicket.visitAt, { 'attr': {'class': "visit"}}) }}
-                    {#{{ form_row(formTicket.visitAt, {"label": "Date de la visite", "attr": {"class": "flatpickr flatpickr-input", "type": "text"}}) }}#}
-                    <label>Date de la Visite</label>
-                    </br>
-                    <input class="flatpickr flatpickr-input birthDate" type="text" placeholder="Select Date.." data-id="minTime" >
+
                     {{ form_row(formTicket.priceType, {"label": "Possédez-vous une carte de réduction?"}) }}
 
                     <button type="submit" class="btn btn-primary btn-block">Enregistrer</button>

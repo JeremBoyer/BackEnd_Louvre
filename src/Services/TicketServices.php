@@ -36,14 +36,6 @@ class TicketServices
         return $countTickets;
     }
 
-    public function halfDay(Ticket $ticket)
-    {
-        if ($ticket->getVisitAt()->format("H") >= 14 )
-        {
-            $ticket->setType(2);
-        }
-    }
-
     public function price(Ticket $ticket)
     {
         if ($ticket->getPriceType() == Ticket::PRICE_TYPE_REDUCTION) {
