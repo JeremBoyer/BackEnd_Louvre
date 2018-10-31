@@ -33,68 +33,7 @@ class TicketController extends Controller
         ]);
     }
 
-    /**
-     * @Route("/ticket/summary", name="ticket_summary")
-     */
-    public function ticketSummary(Request $request, TicketServices $ticketServices, SessionInterface $session, CommandServices $commandServices)
-    {
-//        dump($ticketServices->countTickets($this->getDoctrine()->getRepository(Ticket::class)));
-        dump($request);
-        $total = 0;
-        if (!empty($session->get('tickets'))) {
-            $sessionTickets = $session->get('tickets');
-            $numberOfTickets = 0;
-            foreach ($sessionTickets as $ticket) {
-                $numberOfTickets++ ;
-                $total = $ticketServices->price($ticket) + $total;
-            }
-        }
 
-
-        if (!empty($_POST['stripeToken'])) {
-
-            $commandServices->stripe($total);
-
-            $command = new Command();
-
-            dump($commandServices->stripe($total));
-
-//            dump($commandRepository->find(1));
-
-            $command->setEmail($_POST['stripeEmail']);
-            $command->setNumberOfTicket($numberOfTickets);
-            $command->setTotalPrice($total);
-            $command->setCommandAt(new \DateTime());
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($command);
-
-//            dump($command);
-
-
-            $sessionTickets = $session->get('tickets');
-            foreach ($sessionTickets as $ticket) {
-                $ticket->setCommand($command);
-                $entityManager->persist($ticket);
-                dump($ticket);
-            }
-//
-            $entityManager->flush();
-
-
-//
-//            return $this->redirectToRoute('treatment');
-        }
-
-
-
-
-        return $this->render('ticket/summary.html.twig', [
-            'price' => $ticketServices,
-            'total' => $total,
-            'numberOfTickets' => $numberOfTickets
-        ]);
-    }
 
     /**
      * @Route("/ticket/create", name="create_ticket")
@@ -123,7 +62,7 @@ class TicketController extends Controller
                 'Vous avez ajouté un ticket!'
             );
 
-            return $this->redirectToRoute('ticket_summary');
+            return $this->redirectToRoute('command');
         }
 
         return $this->render('ticket/create.html.twig', [
@@ -138,7 +77,7 @@ class TicketController extends Controller
     {
         $session->clear();
 
-        return $this->redirectToRoute('ticket_summary');
+        return $this->redirectToRoute('command');
     }
 
     /**
@@ -146,26 +85,18 @@ class TicketController extends Controller
      */
     public function delete(Session $session, $ticketNumber)
     {
-        dump($session->get('tickets')[$ticketNumber]);
-
         if (array_key_exists($ticketNumber, $session->get('tickets'))) {
             $tickets = $session->get('tickets');
             unset($tickets[$ticketNumber]);
 
             $session->set('tickets', $tickets);
+
+            $this->addFlash(
+                'info',
+                'Vous avez supprimer le ticket'
+            );
         }
 
-        return $this->redirectToRoute('ticket_summary');
-    }
-
-    /**
-     * @Route("/ticket/treatment", name="treatment")
-     */
-    public function treatment()
-    {
-        if (!empty($charge = \Stripe\Charge::class)) {
-            if ($charge->status === "succeeded");
-            dump($charge);
-        }
+        return $this->redirectToRoute('command');
     }
 }

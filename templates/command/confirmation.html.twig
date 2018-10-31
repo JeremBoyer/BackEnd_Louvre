@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }}Confirmation de commande{% endblock %}
+
+{% block body %}
+
+    <div class="card bg-success">
+        <div class="card-header">
+            Votre commande est confirmé
+        </div>
+        <div class="card-body">
+            <p class="card-text">
+                Vous venez de recevoir votre commande par mail!<br>
+                <a href="{{ path('home') }}"> Retour vers la page d'accueil </a>
+            </p>
+            <h4 class="card-title">
+                À bientot!
+            </h4>
+        </div>
+    </div>
+
+{% endblock %}
