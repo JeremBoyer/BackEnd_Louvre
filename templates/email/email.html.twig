@@ -1,0 +1,12 @@
+{{ mjml }}
+<h3>You did it! You registered!</h3>
+
+Hi {{ command.getNumberOfTicket() }}! You're successfully registered.
+
+{{ for key, ticket in app.session.get('tickets') }}
+
+    {{ ticket.getName() }}
+
+{{ endfor }}
+
+{{ endmjml }}

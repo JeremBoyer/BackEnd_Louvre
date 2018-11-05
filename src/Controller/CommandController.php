@@ -6,6 +6,7 @@ use App\Form\StripeType;
 use App\Services\CommandServices;
 use App\Services\TicketServices;
 use App\Entity\Command;
+use App\Services\MjmlServices;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,7 +33,6 @@ class CommandController extends Controller
             }
         }
 
-
         if (!empty($_POST['stripeToken'])) {
 
             $commandServices->stripe($total);
@@ -57,6 +57,29 @@ class CommandController extends Controller
             }
 //
             $entityManager->flush();
+
+            $message = (new \Swift_Message('Louvre : Confirmation de commande'))
+                ->setFrom('jereboyer08@gmail.com')
+                ->setTo($_POST['stripeEmail'])
+                ->setBody(
+                    $this->get('mjml')->render(
+                        $this->get('twig')->render('email/email.mjml.twig', [
+                            'tickets' => $sessionTickets,
+                            'price' => $ticketServices,
+                            'command' => $command
+                        ])
+                    ),
+                    'text/html'
+                )
+//            ->setBody(
+//                $this->renderView('email/email.html.twig', [
+//                    'tickets' => $sessionTickets,
+//                    'command' => $command
+//                    ])
+//                )
+            ;
+
+            $this->get('mailer')->send($message);
 //
             return $this->redirectToRoute('confirmation');
         }
@@ -76,6 +99,19 @@ class CommandController extends Controller
      */
     public function confirmation(Request $request)
     {
+        dump($request);
+//        $message = (new \Swift_Message('Hello Email'))
+//            ->setFrom('jereboyer08@gmail.com')
+//            ->setTo('jereboyer08@gmail.com')
+//            ->setBody(
+//                $this->get('twig')->render('email/email.mjml.twig', [
+//                    'name' => 'Floran'
+//                ]),
+//                'text/html'
+//            )
+//        ;
+//
+//        $this->get('mailer')->send($message);
 
         return $this->render('command/confirmation.html.twig');
     }

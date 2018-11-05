@@ -36,7 +36,6 @@ class CommandServices
             ));
             dump($charge);
 
-
             return $charge;
 
 
@@ -59,6 +58,7 @@ class CommandServices
             // Too many requests made to the API too quickly
             return false;
         } catch (InvalidRequest $e) {
+            $e->getMessage();
             $e = new RateLimit("Requete invalide");
             dump($e);
             // Invalid parameters were supplied to Stripe's API

@@ -1,0 +1,117 @@
+{# mail/example.mjml.twig #}
+<mjml>
+
+    <mj-body background-color="#3A3F44" font-size="13px">
+        <!-- EmailHeader -->
+        <mj-section background-color="#ffffff" padding-bottom="0px" padding-top="0">
+            <mj-column vertical-align="top" width="100%">
+
+                <mj-image src="/image/radeau.jpg" alt="" align="center" border="none" width="600px" padding-left="0px" padding-right="0px" padding-bottom="0px" padding-top="0"></mj-image>
+
+            </mj-column>
+        </mj-section>
+        <!-- End EmailHeader -->
+
+        <!-- Email title -->
+        <mj-section background-color="#272B30" vertical-align="top" padding-bottom="0px" padding-top="10px" full-width="full-width">
+
+            <mj-column vertical-align="top" width="100%">
+                <mj-image src="{{ asset('image/logo-louvre.jpg') }}"></mj-image>
+                <mj-text color="#7A8288" font-size="30px" font-weight="bold" font-family="open Sans Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px" padding-bottom="30px" padding-top="50px">
+
+                    Confirmation de commande
+
+                </mj-text>
+            </mj-column>
+        </mj-section>
+        <!-- End Email title -->
+
+
+        <!-- Email body -->
+
+        <!-- Command title -->
+        <mj-section background-color="#272B30">
+            <mj-column>
+                <mj-text align="center" color="#e9ecef" font-size="22px" font-family="open Sans Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px">
+
+                    La commande<br />
+
+                </mj-text>
+                <mj-divider border-width="2px" border-color="#ffffff" width="50%" />
+                <mj-divider border-width="2px" border-color="#ffffff" width="25%" />
+            </mj-column>
+        </mj-section>
+        <!-- End Command title -->
+
+        <!-- Command -->
+        <mj-section background-color="#272B30">
+            <mj-column>
+                <mj-text align="left" color="#ffffff" font-size="15px" font-family="open Sans Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px">
+
+                    Numéro de commande : <br></br>
+
+                    Nombre de ticket : {{ command.getNumberOfTicket }}<br></br>
+
+                    Prix total : {{ command.getTotalPrice }}€<br></br>
+
+                </mj-text>
+                <mj-divider border-width="2px" border-color="#ffffff" width="80%"/>
+            </mj-column>
+        </mj-section>
+        <!-- End Command -->
+
+        <!-- Loop ticket(s) -->
+        {% for ticket in tickets %}
+        <!-- Ticket(s) title -->
+        <mj-section background-color="#272B30">
+            <mj-column>
+                <mj-text align="center" color="#e9ecef" font-size="22px" font-family="open Sans Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px">
+
+                    Ticket <br />
+
+                </mj-text>
+                <mj-divider border-width="2px" border-color="#ffffff" width="50%" padding-bottom="0px"/>
+            </mj-column>
+        </mj-section>
+        <!-- End Ticket(s) title -->
+
+        <!-- Ticket(s) content -->
+        <mj-section background-color="#272B30" padding="0px">
+            <mj-column>
+                <mj-text color="#ffffff" align="center">
+
+                    N° <br></br>
+
+                    Visiteur : {{ ticket.getName() }} - {{ ticket.getFirstName() }}<br></br>
+
+                    Date de naissance : {{ ticket.getBirthDate()|date('d-M-y') }}<br></br>
+
+                    Date de naissance<br></br>
+
+                    Date de la visite : le {{ ticket.getVisitAt()|date('d-M-y') }} à {{ ticket.getVisitAt()|date('H:I') }}<br></br>
+
+                    Prix unitaire : {{ price.price(ticket)/100 }}<br></br>
+
+                </mj-text>
+            </mj-column>
+        </mj-section>
+        <!-- Ticket(s) content -->
+        {% endfor %}
+        <!-- End Loop -->
+
+        <!-- See you soon -->
+        <mj-section background-color="#7A8288" padding-bottom="20px" padding-top="20px">
+            <mj-column vertical-align="middle" width="100%">
+                <mj-text align="left" color="#ffffff" font-size="15px" font-family="open Sans Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px">
+
+                    Merci et à bientot pour votre visite<br /> Le Louvre
+
+                </mj-text>
+            </mj-column>
+        </mj-section>
+        <!-- End See you soon -->
+
+        <!-- End Email body -->
+    </mj-body>
+
+</mjml>

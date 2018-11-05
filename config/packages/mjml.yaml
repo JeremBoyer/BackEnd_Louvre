@@ -1,0 +1,4 @@
+# config/packages/mjml.yaml
+mjml:
+    bin: '%kernel.project_dir%/node_modules/.bin/mjml' # default:  mjml
+    mimify: true # default: false
