@@ -26,9 +26,7 @@
         </mj-section>
         <!-- End Email title -->
 
-
         <!-- Email body -->
-
         <!-- Command title -->
         <mj-section background-color="#272B30">
             <mj-column>
@@ -46,7 +44,7 @@
         <!-- Command -->
         <mj-section background-color="#272B30">
             <mj-column>
-                <mj-text align="left" color="#ffffff" font-size="15px" font-family="open Sans Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px">
+                <mj-text align="left" color="#ffffff" font-size="20px" font-family="open Sans Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px">
 
                     Numéro de commande : <br></br>
 
@@ -78,21 +76,28 @@
         <!-- Ticket(s) content -->
         <mj-section background-color="#272B30" padding="0px">
             <mj-column>
-                <mj-text color="#ffffff" align="center">
-
-                    N° <br></br>
+                <mj-text font-size="20px" color="#ffffff" align="center">
 
                     Visiteur : {{ ticket.getName() }} - {{ ticket.getFirstName() }}<br></br>
 
-                    Date de naissance : {{ ticket.getBirthDate()|date('d-M-y') }}<br></br>
+                </mj-text>
+                <mj-text font-size="20px" color="#ffffff" align="center">
 
                     Date de naissance<br></br>
 
+                </mj-text>
+                <mj-text font-size="20px" color="#ffffff" align="center">
+
                     Date de la visite : le {{ ticket.getVisitAt()|date('d-M-y') }} à {{ ticket.getVisitAt()|date('H:I') }}<br></br>
+
+                </mj-text>
+                <mj-text font-size="20px" color="#ffffff" align="center">
 
                     Prix unitaire : {{ price.price(ticket)/100 }}<br></br>
 
                 </mj-text>
+                <mj-divider border-width="2px" border-color="#ffffff" width="25%"/>
+                <mj-divider border-width="2px" border-color="#ffffff" width="80%"/>
             </mj-column>
         </mj-section>
         <!-- Ticket(s) content -->

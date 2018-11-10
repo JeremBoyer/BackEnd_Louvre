@@ -9,12 +9,14 @@ use Stripe\Error\RateLimit;
 use Stripe\Error\Authentication;
 use Stripe\Error\ApiConnection;
 use Stripe\Error\Base;
+use Symfony\Component\HttpKernel\Log\Logger;
+use Psr\Log\LoggerInterface;
 
 
 class CommandServices
 {
 
-    public function stripe($total)
+    public function stripe($total, LoggerInterface $logger)
     {
 
         try {
@@ -34,9 +36,9 @@ class CommandServices
                 'amount'   => $total,
                 'currency' => 'eur'
             ));
-            dump($charge);
 
-            return $charge;
+            $logger->info("Creating charge and customer is a success");
+            return true;
 
 
         } catch(Card $e) {
@@ -50,35 +52,38 @@ class CommandServices
             // param is '' in this case
             print('Param is:' . $err['param'] . "\n");
             print('Message is:' . $err['message'] . "\n");
+            $logger->error("Stripe error : " . $e->getStripeCode());
             dump($err, $body, $e);
         } catch (RateLimit $e) {
-            $e = new RateLimit("Limite de temps dépassé. Assurez vous d'avoir une bonne connexion et réessayez. En cas de nouvel échec contactez le musée");
-
+            $logger->error("Stripe error : " . $e->getStripeCode());
             dump($e);
             // Too many requests made to the API too quickly
             return false;
         } catch (InvalidRequest $e) {
-            $e->getMessage();
-            $e = new RateLimit("Requete invalide");
-            dump($e);
+            $logger->error("Stripe error : " . $e->getStripeCode());
+            dump($e, $e->getCode());
             // Invalid parameters were supplied to Stripe's API
             return false;
         } catch (Authentication $e) {
             // Authentication with Stripe's API failed
+            $logger->error("Stripe error : " . $e->getStripeCode());
             dump($e);
             // (maybe you changed API keys recently)
             return false;
         } catch (ApiConnection $e) {
             // Network communication with Stripe failed
+            $logger->error("Stripe error : " . $e->getStripeCode());
             dump($e);
             return false;
         } catch (Base $e) {
-            dump($e);
+            $logger->error("Stripe error : " . $e->getStripeCode());
+            dump($e, $e->getStripeCode(), $logger);
             // Display a very generic error to the user, and maybe send
             // yourself an email
             return false;
         } catch (Exception $e) {
             // Something else happened, completely unrelated to Stripe
+            $logger->error("Stripe error : " . $e->getStripeCode());
             dump($e);
             return false;
         }

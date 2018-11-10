@@ -20,7 +20,9 @@ class TicketType extends AbstractType
         $builder
             ->add('name')
             ->add('firstName')
-            ->add('country', CountryType::class)
+            ->add('country', CountryType::class, array(
+                "placeholder" => "Choisissez votre pays"
+            ))
             ->add(
                 'priceType', CheckboxType::class, array(
                     'required' => false,

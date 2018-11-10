@@ -9,9 +9,9 @@
 {% block body %}
 
     <div class="container">
-        <h1 class="text-center text-primary">Billetterie </h1>
+        <h1 class="text-center text-primary p-4">Billetterie </h1>
 
-        <div class="row">
+        <div class="row p-4">
             <div class="col-md-3">
 
             </div>
@@ -48,7 +48,7 @@
             enableTime: true,
             minTime: "09:00",
             minDate: "today",
-            dateFormat: "d-m-Y",
+            dateFormat: "d-m-Y H:i",
             disable: [
                 function(date) {
                     // return true to disable
@@ -67,7 +67,8 @@
 
         });
         $(".birthday").flatpickr({
-            maxDate: "today"
+            maxDate: "today",
+            dateFormat: "d-m-Y"
         });
     </script>
 {% endblock %}

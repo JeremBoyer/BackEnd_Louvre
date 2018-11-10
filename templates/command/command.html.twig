@@ -14,13 +14,13 @@
     <div class="row">
         <div class="container">
             <div class="d-flex justify-content-between">
-                <h3 class="p-1 m-1 text-primary">Votre commande :</h3>
+                <h3 class="p-1 m-3 text-primary">Votre commande :</h3>
 
-                <a href="{{ path('create_ticket') }}" class="btn btn-info m-2">Ajouter un ticket</a>
+                <a href="{{ path('create_ticket') }}" class="btn btn-info m-3">Ajouter un ticket</a>
             </div>
         </div>
     </div>
-    <a class="btn btn-danger" href="{{ path('reset_ticket') }}">Abandon</a>
+    <a class="btn btn-danger m-4" href="{{ path('reset_ticket') }}">Abandon</a>
     <table class="table table-hover table-dark p-4">
         <thead>
         <tr>
@@ -70,20 +70,21 @@
     </table>
 
     <a class="btn btn-info btn-block pb-3" href="{{ path('create_ticket') }}">Ajouter un ticket</a>
-
-    <form method="POST">
-        <script
-                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                data-key="pk_test_mWgQQAPHImzZrSGV0J5xK9Nj"
-                data-amount="{{ total }}"
-                data-name="Paiement de la commande"
-                data-description="{{ numberOfTickets }} tickets"
-                data-image="{{ asset('image/mona-lisa.jpg') }}"
-                data-locale="auto"
-                data-currency="eur"
-                data-label="Paiement par carte">
-        </script>
-    </form>
+    <div class="p-4 mx-auto" style="width: 200px">
+        <form method="POST">
+            <script
+                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-key="pk_test_mWgQQAPHImzZrSGV0J5xK9Nj"
+                    data-amount="{{ total }}"
+                    data-name="Paiement de la commande"
+                    data-description="{{ numberOfTickets }} tickets"
+                    data-image="{{ asset('image/mona-lisa.jpg') }}"
+                    data-locale="auto"
+                    data-currency="eur"
+                    data-label="Paiement par carte">
+            </script>
+        </form>
+    </div>
 </div>
 
 
