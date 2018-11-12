@@ -2,19 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Command;
 use App\Entity\Ticket;
 use App\Form\TicketType;
-
-use App\Repository\CommandRepository;
-use App\Repository\TicketRepository;
-use App\Services\CommandServices;
 use App\Services\TicketServices;
-use Doctrine\Common\Persistence\ObjectManager;
-use Stripe\Charge;
-use Stripe\Customer;
-use Stripe\Stripe;
-use Symfony\Bundle\FrameworkBundle\Tests\Fixtures\Validation\Article;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -48,7 +39,7 @@ class TicketController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             
-            $ticketServices->priceType($ticket);
+            $ticketServices->generatePriceType($ticket);
 
             $sessionTickets = $session->get('tickets');
 
@@ -76,6 +67,11 @@ class TicketController extends Controller
     public function reset(Session $session)
     {
         $session->clear();
+
+        $this->addFlash(
+            "info",
+            "Votre commande a bien été abandonnée."
+        );
 
         return $this->redirectToRoute('command');
     }

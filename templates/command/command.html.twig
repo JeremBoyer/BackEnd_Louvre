@@ -41,10 +41,10 @@
                 <th scope="row">{{ key }}</th>
                 <td>{{ ticket.getName() }}</td>
                 <td>{{ ticket.getFirstName() }}</td>
-                <td>{{ ticket.getBirthDate()|date('d-M-y') }}</td>
+                <td>{{ ticket.getBirthDate()|date('d-M-Y') }}</td>
                 <td>{{ ticket.getCountry() }}</td>
                 <td>{{ ticket.getVisitAt()|date('d-M-y') }}</td>
-                <td>{{ price.price(ticket)/100 }} €</td>
+                <td>{{ ticketService.deductPrice(ticket) }} €</td>
                 <td>
                     <a href="{{ path('delete_ticket', {'ticketNumber': key }) }}" class="btn btn-danger">Supprimer</a>
                 </td>
@@ -63,7 +63,7 @@
                 <h3>Prix total</h3>
             </td>
             <td colspan="5" class="text-right">
-                <h2> {{ total/100 }} €</h2>
+                <h2> {{ total }} €</h2>
             </td>
         </tr>
         </tfoot>

@@ -113,7 +113,7 @@ class Command
     {
         if (!$this->tickets->contains($ticket)) {
             $this->tickets[] = $ticket;
-            $ticket->setOrdered($this);
+            $ticket->setCommand($this);
         }
 
         return $this;
@@ -124,8 +124,8 @@ class Command
         if ($this->tickets->contains($ticket)) {
             $this->tickets->removeElement($ticket);
             // set the owning side to null (unless already changed)
-            if ($ticket->getOrdered() === $this) {
-                $ticket->setOrdered(null);
+            if ($ticket->getCommand() === $this) {
+                $ticket->setCommand(null);
             }
         }
 

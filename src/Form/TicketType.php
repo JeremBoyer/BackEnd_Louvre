@@ -33,7 +33,8 @@ class TicketType extends AbstractType
             ))
             ->add('birthDate', BirthdayType::class, array(
                 'label' => "Date d'anniversaire",
-                "widget" => "single_text"
+                "widget" => "single_text",
+                "format" => "dd-MM-yyyy"
             ))
         ;
     }
