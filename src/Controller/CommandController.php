@@ -38,6 +38,7 @@ class CommandController extends Controller
             foreach ($sessionTickets as $ticket) {
                 $numberOfTickets++ ;
                 $total = $ticketServices->deductPrice($ticket) + $total;
+                dump($sessionTickets, $ticket);
             }
         }
 

@@ -30,6 +30,7 @@ class TicketType extends AbstractType
             )
             ->add('visitAt', DateTimeType::class, array(
                 'label' => "Date de la visite",
+                'format' => "dd-MM-yyyy HH:ii"
             ))
             ->add('birthDate', BirthdayType::class, array(
                 'label' => "Date d'anniversaire",

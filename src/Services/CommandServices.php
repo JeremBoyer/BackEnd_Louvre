@@ -7,8 +7,12 @@ use Stripe\Error\RateLimit;
 use Stripe\Error\Authentication;
 use Stripe\Error\ApiConnection;
 use Stripe\Error\Base;
+use Stripe\Stripe;
+use Stripe\Charge;
+use Stripe\Customer;
 
 use Psr\Log\LoggerInterface;
+
 
 class CommandServices
 {
@@ -24,18 +28,18 @@ class CommandServices
 
         try {
             // Use Stripe's library to make requests...
-            \Stripe\Stripe::setApiKey("sk_test_dyef7XjJglQ11UrUYuYDgEr8");
+            Stripe::setApiKey("sk_test_dyef7XjJglQ11UrUYuYDgEr8");
 
             $token  = $_POST['stripeToken'];
             $email  = $_POST['stripeEmail'];
             $totalStripe = $total*100;
 
-            $customer = \Stripe\Customer::create(array(
+            $customer = Customer::create(array(
                 'email' => $email,
                 'source'  => $token
             ));
 
-            $charge = \Stripe\Charge::create(array(
+            Charge::create(array(
                 'customer' => $customer->id,
                 'amount'   => $totalStripe,
                 'currency' => 'eur'

@@ -24,16 +24,12 @@ class TicketServices
             return $ticket->setPriceType($ticket::PRICE_TYPE_BABY);
         } elseif (4 <= $diff->y && $diff->y < 12) {
             return $ticket->setPriceType($ticket::PRICE_TYPE_CHILD);
-        } elseif (12 <= $diff->y && $diff->y < 60) {
-            // Not return because, visitor can have a discount card
-            $ticket->setPriceType($ticket::PRICE_TYPE_NORMAL);
-        } elseif ($diff->y >= 60) {
-            // Not return because, visitor can have a discount card
-            $ticket->setPriceType($ticket::PRICE_TYPE_SENIOR);
-        }
-
-        if ($ticket->getPriceType() === 1) {
+        } elseif ($ticket->getPriceType() === 1) {
             return $ticket->setPriceType($ticket::PRICE_TYPE_REDUCTION);
+        } elseif (12 <= $diff->y && $diff->y < 60) {
+            return $ticket->setPriceType($ticket::PRICE_TYPE_NORMAL);
+        } elseif ($diff->y >= 60) {
+            return $ticket->setPriceType($ticket::PRICE_TYPE_SENIOR);
         }
     }
 

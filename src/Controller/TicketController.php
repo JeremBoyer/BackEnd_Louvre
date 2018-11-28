@@ -42,11 +42,11 @@ class TicketController extends Controller
             $ticketServices->generatePriceType($ticket);
 
             $sessionTickets = $session->get('tickets');
-
-            $sessionTickets[uniqid()] = $ticket;
-
+            $id = "Louvre:" . uniqid();
+            $sessionTickets[$id] = $ticket;
 
             $session->set('tickets', $sessionTickets);
+            $ticket->setId($id);
 
             $this->addFlash(
                 'success',
