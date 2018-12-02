@@ -30,20 +30,8 @@ class CommandServices
             // Use Stripe's library to make requests...
             Stripe::setApiKey("sk_test_dyef7XjJglQ11UrUYuYDgEr8");
 
-            $token  = $_POST['stripeToken'];
-            $email  = $_POST['stripeEmail'];
-            $totalStripe = $total*100;
-
-            $customer = Customer::create(array(
-                'email' => $email,
-                'source'  => $token
-            ));
-
-            Charge::create(array(
-                'customer' => $customer->id,
-                'amount'   => $totalStripe,
-                'currency' => 'eur'
-            ));
+            $customer = $this->createNewStripeCustomer();
+            $this->createNewStripeCharge($total, $customer);
 
             $logger->info("Creating charge and customer is a success");
             return true;
@@ -93,6 +81,25 @@ class CommandServices
         }
 
 
+    }
+
+    public function createNewStripeCustomer()
+    {
+        dump('coucou');
+        die();
+        return Customer::create(array(
+            'email' => $_POST['stripeEmail'],
+            'source'  => $_POST['stripeToken']
+        ));
+    }
+
+    public function createNewStripeCharge($total, $customer)
+    {
+        return Charge::create(array(
+            'customer' => $customer->id,
+            'amount'   => $total*100,
+            'currency' => 'eur'
+        ));
     }
 
 }

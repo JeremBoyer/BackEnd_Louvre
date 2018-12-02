@@ -72,6 +72,8 @@ class TicketServicesTest extends TestCase
         $this->assertEquals($ticket::PRICE_TYPE_REDUCTION, $ticket->getPriceType());
     }
 
+
+    // Beginning of deductPrice tests
     public function testDeductPriceReduction()
     {
         $ticketServices = new TicketServices();
