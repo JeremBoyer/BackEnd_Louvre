@@ -1,13 +1,13 @@
-{# mail/example.mjml.twig #}
+{# email/email.mjml.twig #}
 <mjml>
 
     <mj-body background-color="#3A3F44" font-size="13px">
         <!-- EmailHeader -->
-        <mj-section background-color="#ffffff" padding-bottom="0px" padding-top="0">
-            <mj-column vertical-align="top" width="100%">
-
-                <mj-image src="/image/radeau.jpg" alt="" align="center" border="none" width="600px" padding-left="0px" padding-right="0px" padding-bottom="0px" padding-top="0"></mj-image>
-
+        <mj-section background-url="https://zupimages.net/up/18/45/wtf9.jpg"
+                    background-size="cover"
+                    full-width="full-width">
+            <mj-column>
+                <mj-spacer height="480px" />
             </mj-column>
         </mj-section>
         <!-- End EmailHeader -->
@@ -15,9 +15,13 @@
         <!-- Email title -->
         <mj-section background-color="#272B30" vertical-align="top" padding-bottom="0px" padding-top="10px" full-width="full-width">
 
-            <mj-column vertical-align="top" width="100%">
-                <mj-image src="{{ asset('image/logo-louvre.jpg') }}"></mj-image>
-                <mj-text color="#7A8288" font-size="30px" font-weight="bold" font-family="open Sans Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px" padding-bottom="30px" padding-top="50px">
+            <mj-column vertical-align="top" width="40%">
+                <mj-image src="https://zupimages.net/up/18/45/wjr8.jpg" alt="Logo du Louvre"></mj-image>
+            </mj-column>
+        </mj-section>
+        <mj-section background-color="#272B30" vertical-align="top" padding-bottom="0px" padding-top="10px" full-width="full-width">
+            <mj-column>
+                <mj-text color="#7A8288" font-size="30px" font-weight="bold" font-family="open Sans Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px" padding-bottom="30px" padding-top="0px" align="center">
 
                     Confirmation de commande
 
@@ -46,7 +50,7 @@
             <mj-column>
                 <mj-text align="left" color="#ffffff" font-size="20px" font-family="open Sans Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px">
 
-                    Numéro de commande : <br></br>
+                    Numéro de commande : {{ command.getId }}<br></br>
 
                     Nombre de ticket : {{ command.getNumberOfTicket }}<br></br>
 
@@ -60,47 +64,47 @@
 
         <!-- Loop ticket(s) -->
         {% for ticket in tickets %}
-        <!-- Ticket(s) title -->
-        <mj-section background-color="#272B30">
-            <mj-column>
-                <mj-text align="center" color="#e9ecef" font-size="22px" font-family="open Sans Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px">
+            <!-- Ticket(s) title -->
+            <mj-section background-color="#272B30">
+                <mj-column>
+                    <mj-text align="center" color="#e9ecef" font-size="22px" font-family="open Sans Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px">
 
-                    Ticket <br />
+                        Ticket n°{{ ticket.getId }}<br />
 
-                </mj-text>
-                <mj-divider border-width="2px" border-color="#ffffff" width="50%" padding-bottom="0px"/>
-            </mj-column>
-        </mj-section>
-        <!-- End Ticket(s) title -->
+                    </mj-text>
+                    <mj-divider border-width="2px" border-color="#ffffff" width="50%" padding-bottom="0px"/>
+                </mj-column>
+            </mj-section>
+            <!-- End Ticket(s) title -->
 
-        <!-- Ticket(s) content -->
-        <mj-section background-color="#272B30" padding="0px">
-            <mj-column>
-                <mj-text font-size="20px" color="#ffffff" align="center">
+            <!-- Ticket(s) content -->
+            <mj-section background-color="#272B30" padding="0px">
+                <mj-column>
+                    <mj-text font-size="20px" color="#ffffff" align="center">
 
-                    Visiteur : {{ ticket.getName() }} - {{ ticket.getFirstName() }}<br></br>
+                        Visiteur : {{ ticket.getName() }} - {{ ticket.getFirstName() }}<br></br>
 
-                </mj-text>
-                <mj-text font-size="20px" color="#ffffff" align="center">
+                    </mj-text>
+                    <mj-text font-size="20px" color="#ffffff" align="center">
 
-                    Date de naissance<br></br>
+                        Date de naissance : le {{ ticket.getBirthDate()|date('d-M-Y') }}<br></br>
 
-                </mj-text>
-                <mj-text font-size="20px" color="#ffffff" align="center">
+                    </mj-text>
+                    <mj-text font-size="20px" color="#ffffff" align="center">
 
-                    Date de la visite : le {{ ticket.getVisitAt()|date('d-M-y') }} à {{ ticket.getVisitAt()|date('H:I') }}<br></br>
+                        Date de la visite : le {{ ticket.getVisitAt()|date('d-M-Y') }} à {{ ticket.getVisitAt()|date('H:i') }}<br></br>
 
-                </mj-text>
-                <mj-text font-size="20px" color="#ffffff" align="center">
+                    </mj-text>
+                    <mj-text font-size="20px" color="#ffffff" align="center">
 
-                    Prix unitaire : {{ price.price(ticket)/100 }}<br></br>
+                        Prix unitaire : {{ ticketService.deductPrice(ticket)}}<br></br>
 
-                </mj-text>
-                <mj-divider border-width="2px" border-color="#ffffff" width="25%"/>
-                <mj-divider border-width="2px" border-color="#ffffff" width="80%"/>
-            </mj-column>
-        </mj-section>
-        <!-- Ticket(s) content -->
+                    </mj-text>
+                    <mj-divider border-width="2px" border-color="#ffffff" width="25%"/>
+                    <mj-divider border-width="2px" border-color="#ffffff" width="80%"/>
+                </mj-column>
+            </mj-section>
+            <!-- Ticket(s) content -->
         {% endfor %}
         <!-- End Loop -->
 

@@ -1,20 +1,10 @@
 <?php
-
 namespace App\Controller;
 
-use App\Entity\Command;
 use App\Entity\Ticket;
 use App\Form\TicketType;
-
-use App\Repository\CommandRepository;
-use App\Repository\TicketRepository;
-use App\Services\CommandServices;
 use App\Services\TicketServices;
-use Doctrine\Common\Persistence\ObjectManager;
-use Stripe\Charge;
-use Stripe\Customer;
-use Stripe\Stripe;
-use Symfony\Bundle\FrameworkBundle\Tests\Fixtures\Validation\Article;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -24,18 +14,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class TicketController extends Controller
 {
     /**
-     * @Route("/ticket", name="ticket")
-     */
-    public function index()
-    {
-        return $this->render('ticket/index.html.twig', [
-            'controller_name' => 'TicketController',
-        ]);
-    }
-
-
-
-    /**
      * @Route("/ticket/create", name="create_ticket")
      */
     public function create(Request $request, TicketServices $ticketServices, SessionInterface $session)
@@ -43,19 +21,16 @@ class TicketController extends Controller
         $ticket = new Ticket();
 
         $form = $this->createForm(TicketType::class, $ticket);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
-            $ticketServices->priceType($ticket);
 
+            $ticketServices->generatePriceType($ticket);
             $sessionTickets = $session->get('tickets');
-
-            $sessionTickets[uniqid()] = $ticket;
-
-
+            $id = "Louvre:" . uniqid();
+            $sessionTickets[$id] = $ticket;
             $session->set('tickets', $sessionTickets);
+            $ticket->setId($id);
 
             $this->addFlash(
                 'success',
@@ -64,12 +39,10 @@ class TicketController extends Controller
 
             return $this->redirectToRoute('command');
         }
-
         return $this->render('ticket/create.html.twig', [
             'formTicket' => $form->createView()
         ]);
     }
-
     /**
      * @Route("/ticket/reset", name="reset_ticket")
      */
@@ -77,9 +50,13 @@ class TicketController extends Controller
     {
         $session->clear();
 
+        $this->addFlash(
+            "info",
+            "Votre commande a bien été abandonnée."
+        );
+
         return $this->redirectToRoute('command');
     }
-
     /**
      * @Route("/ticket/delete/{ticketNumber}", name="delete_ticket")
      */
@@ -88,9 +65,7 @@ class TicketController extends Controller
         if (array_key_exists($ticketNumber, $session->get('tickets'))) {
             $tickets = $session->get('tickets');
             unset($tickets[$ticketNumber]);
-
             $session->set('tickets', $tickets);
-
             $this->addFlash(
                 'info',
                 'Vous avez supprimer le ticket'
