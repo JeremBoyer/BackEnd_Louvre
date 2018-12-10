@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Entity\Ticket;
-use App\Repository\TicketRepository;
 
 
 class TicketServices

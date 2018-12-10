@@ -22,3 +22,7 @@ yarn-error.log
 ###< symfony/web-server-bundle ###
 
 .idea
+
+###> phpunit/phpunit ###
+/phpunit.xml
+###< phpunit/phpunit ###

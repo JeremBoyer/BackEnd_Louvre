@@ -2,6 +2,7 @@
 namespace App\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use PHPUnit\Framework\W;
 
 class MuseumControllerTest extends WebTestCase
 {
