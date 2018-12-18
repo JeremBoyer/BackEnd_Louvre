@@ -8,6 +8,13 @@ use PHPUnit\Framework\TestCase;
 
 class TicketServicesTest extends TestCase
 {
+    /**
+     * @covers \App\Services\TicketServices::generatePriceType()
+     * @covers \App\Entity\Ticket::getBirthDate
+     * @covers \App\Entity\Ticket::getPriceType
+     * @covers \App\Entity\Ticket::setBirthDate
+     * @covers \App\Entity\Ticket::setPriceType
+     */
     public function testGeneratePriceTypeToTwo()
     {
         $ticketServices = new TicketServices();

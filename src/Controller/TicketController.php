@@ -43,6 +43,7 @@ class TicketController extends Controller
             'formTicket' => $form->createView()
         ]);
     }
+
     /**
      * @Route("/ticket/reset", name="reset_ticket")
      */
@@ -57,6 +58,7 @@ class TicketController extends Controller
 
         return $this->redirectToRoute('command');
     }
+
     /**
      * @Route("/ticket/delete/{ticketNumber}", name="delete_ticket")
      */

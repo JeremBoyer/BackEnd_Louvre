@@ -8,6 +8,9 @@ use Psr\Log\LoggerInterface;
 
 class CommandServicesTest extends TestCase
 {
+    /**
+     * @
+     */
     public function testStripeWillCreateCustomer()
     {
         $customerObject = new \stdClass();
@@ -34,6 +37,7 @@ class CommandServicesTest extends TestCase
 
         $this->assertTrue($mockCommandService->createCustomerAndChargeStripe(1000, $mockLogger));
     }
+
     public function testStripeWillCreateCharge()
     {
         $customerObject = new \stdClass();
@@ -59,14 +63,10 @@ class CommandServicesTest extends TestCase
             ->with("Creating charge and customer is a success");
         $this->assertTrue($mockCommandService->createCustomerAndChargeStripe(1000, $mockLogger));
     }
+
+
     public function testStripeWillNotCreateChargeAndThrowError()
     {
-        $customerObject = new \stdClass();
-
-        $customerObject->id = 0000;
-
-        $chargeObject = new \stdClass();
-
         $mockCommandService = $this->getMockBuilder(CommandServices::class)
             ->setMethods([
                 "createNewStripeCustomer",
@@ -77,14 +77,14 @@ class CommandServicesTest extends TestCase
         $mockCommandService
             ->expects($this->once())
             ->method("createNewStripeCharge")
-            ->will($this->throwException);
+            ->willThrowException(new \Exception("Error during creating charge"));
 
         $mockLogger = $this->getMockBuilder(LoggerInterface::class)->getMock();
         $mockLogger
             ->expects($this->once())
-            ->method('info')
-            ->with("Creating charge and customer is a success");
+            ->method('error')
+            ->with("Stripe error : Error during creating charge");
 
-        $this->assertTrue($mockCommandService->createCustomerAndChargeStripe(1000, $mockLogger));
+        $this->assertFalse($mockCommandService->createCustomerAndChargeStripe(1000, $mockLogger));
     }
 }

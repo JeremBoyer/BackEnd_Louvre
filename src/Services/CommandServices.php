@@ -69,7 +69,7 @@ class CommandServices
             // yourself an email
             return false;
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             // Something else happened, completely unrelated to Stripe
             $logger->error("Stripe error : " . $e->getMessage());
             return false;
@@ -77,6 +77,7 @@ class CommandServices
     }
     public function createNewStripeCustomer()
     {
+        dump('koukou');
         return Customer::create(array(
             'email' => $_POST['stripeEmail'],
             'source'  => $_POST['stripeToken']

@@ -2,13 +2,24 @@
 namespace App\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HTTPFoundation\Response;
 
 class MuseumControllerTest extends WebTestCase
 {
-    public function testHomepage()
+    private $client = null;
+
+    public function setUp()
     {
-        $client = static::createClient();
-        $client->request('GET', '/');
-        $this->assertSame(200, $client->getResponse()->getStatusCode());
+        $this->client = static::createClient();
+    }
+
+    public function testHomepageIsUp()
+    {
+        $this->client->request('GET', '/');
+
+        static::assertEquals(
+            Response::HTTP_OK,
+            $this->client->getResponse()->getStatusCode()
+        );
     }
 }
