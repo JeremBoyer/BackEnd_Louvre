@@ -30,7 +30,7 @@
                     <th scope="col">Nom</th>
                     <th scope="col">Prénom</th>
                     <th scope="col">Date de naissance</th>
-                    <th scope="col">Country</th>
+                    <th scope="col">Pays</th>
                     <th scope="col">Date de la visite</th>
                     <th scope="col">Prix</th>
                     <th></th>
@@ -73,22 +73,21 @@
         </table>
 
         <a class="btn btn-info btn-block pb-3" href="{{ path('create_ticket') }}">Ajouter un ticket</a>
-
-        <div class="p-4 mx-auto" style="width: 200px">
-            <form method="POST">
-                <script
-                        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                        data-key="pk_test_mWgQQAPHImzZrSGV0J5xK9Nj"
-                        data-amount="{{ total }}"
-                        data-name="Paiement de la commande"
-                        data-description="{{ numberOfTickets }} tickets"
-                        data-image="{{ asset('image/mona-lisa.jpg') }}"
-                        data-locale="auto"
-                        data-currency="eur"
-                        data-label="Paiement par carte">
-                </script>
-            </form>
-        </div>
+            <div class="p-4 mx-auto" style="width: 200px">
+                <form method="POST">
+                    <script
+                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            data-key="pk_test_mWgQQAPHImzZrSGV0J5xK9Nj"
+                            data-amount="{{ total*100 }}"
+                            data-name="Paiement de la commande"
+                            data-description="{{ numberOfTickets }} tickets"
+                            data-image="{{ asset('image/mona-lisa.jpg') }}"
+                            data-locale="auto"
+                            data-currency="eur"
+                            data-label="Paiement par carte">
+                    </script>
+                </form>
+            </div>
     </div>
 
 {% endblock %}

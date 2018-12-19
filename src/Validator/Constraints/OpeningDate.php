@@ -9,5 +9,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class OpeningDate extends Constraint
 {
-    public $message = 'Le "{{ string }}" ne correspond pas à une date d\'ouverture du musée';
+    public $message = 'Le "{{ string }}" ne correspond pas à une date d\'ouverture du musée, vous ne pouvez pas réserver à un horaire passé';
 }

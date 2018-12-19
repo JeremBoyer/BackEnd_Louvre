@@ -70,7 +70,7 @@ class TicketController extends Controller
             $session->set('tickets', $tickets);
             $this->addFlash(
                 'info',
-                'Vous avez supprimer le ticket'
+                'Vous avez supprimé le ticket'
             );
         }
 
