@@ -11,7 +11,7 @@ body {
     background-size: initial;
     background-repeat-x: repeat;
     background-repeat-y: no-repeat;
-    background-attachment: initial;
+    background-attachment: fixed;
     background-origin: initial;
     background-clip: initial;
     background-color: initial;
@@ -35,4 +35,53 @@ body {
 
 .form-control:disabled, .form-control[readonly] {
     background-color: white;
+}
+
+/* Table command */
+@media only screen and (max-width: 992px){
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr { border: 1px solid #ccc; }
+
+    td {
+
+        border: none;
+
+        position: relative;
+        padding-left: 50%;
+        line-height:2em;
+    }
+
+    td:before {
+
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+    }
+
+
+    td:nth-of-type(1):before {
+        content: "Date:";
+        font-weight: bold;
+    }
+    td:nth-of-type(2):before {
+        content: "Évènement: ";
+        font-weight: bold;
+    }
+    td:nth-of-type(3):before {
+        content: "Description: ";
+        font-weight: bold;
+        text-align:right;
+    }
 }
