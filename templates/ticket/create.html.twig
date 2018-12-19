@@ -53,12 +53,11 @@
             disable: [
                 function(date) {
                     // return true to disable
-                    console.log(date.getDate());
                     return (
                         date.getDay() === 2 ||
-                        date.getMonth() === 5 && date.getDate() === 1 ||
-                        date.getMonth() === 11 && date.getDate() === 1 ||
-                        date.getMonth() === 12 && date.getDate() === 25
+                        date.getMonth() + 1 === 5 && date.getDate() === 1 ||
+                        date.getMonth() + 1 === 11 && date.getDate() === 1 ||
+                        date.getMonth() + 1 === 12 && date.getDate() === 25
                     );
                 },
             ],

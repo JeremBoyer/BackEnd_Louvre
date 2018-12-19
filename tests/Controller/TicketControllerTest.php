@@ -14,17 +14,17 @@ class TicketControllerTest extends WebTestCase
         $form = $crawler->selectButton('Enregistrer')->form();
 
 // set some values
-        $form['name'] = 'Lucas';
-        $form['firstName'] = 'Bono';
-        $form['birthDate'] = new \DateTime("2009-10-23");
-        $form['country'] = 'France';
-        $form['visitAt'] = new \DateTime("2019-02-24");
-        $form['priceType'] = 4;
+        $form['ticket[name]'] = 'Lucas';
+        $form['ticket[firstName]'] = 'Bono';
+        $form['ticket[birthDate]'] = "2009-10-23";
+        $form['ticket[country]'] = 'FR';
+        $form['ticket[visitAt]'] = "2019-02-24";
+        $form['ticket[priceType]'] = 1;
 
 // submit the form
-        $crawler = $client->submit($form);
+        $client->submit($form);
 
-        $client->followRedirect();
+        $this->assertTrue($client->getResponse()->isRedirect());
 
         dump($client->getResponse()->getContent());
     }

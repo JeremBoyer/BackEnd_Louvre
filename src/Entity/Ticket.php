@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use App\Validator\Constraints as AcmeAssert;
+use App\Validator\Constraints as VisitAssert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TicketRepository")
@@ -51,7 +51,8 @@ class Ticket
 
     /**
      * @ORM\Column(type="date")
-     * @AcmeAssert\OpeningDate
+     * @VisitAssert\OpeningDate
+     * @VisitAssert\ThousandLimit()
      */
     private $visitAt;
 
