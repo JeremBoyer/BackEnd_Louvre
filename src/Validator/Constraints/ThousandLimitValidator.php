@@ -37,10 +37,18 @@ class ThousandLimitValidator extends ConstraintValidator
                 ['visitAt' => $value]
             );
         $sessionTickets = $this->session->get("tickets");
-        $visitors = count($ticketsAtValue) + count($sessionTickets);
-        if ($visitors >= 1000) {
-            $this->context->buildViolation($constraint->message)
-                ->addViolation();
+        $visitors = 0;
+        if (!empty($ticketsAtValue)) {
+            $visitors = count($ticketsAtValue);
+        } elseif (!empty($sessionTickets)) {
+            $visitors = $visitors + count($sessionTickets);
         }
+        if (isset($visitors)) {
+            if ($visitors >= 1000) {
+                $this->context->buildViolation($constraint->message)
+                    ->addViolation();
+            }
+        }
+
     }
 }
