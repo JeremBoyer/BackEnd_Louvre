@@ -68,6 +68,8 @@ class CommandController extends Controller
                     $command->addTicket($ticket);
                 }
                 $entityManager->flush();
+
+                $session->clear();
                 return $this->forward("App\Controller\CommandController::confirmation", array(
                     "command" => $command,
                     "ticketService" => $ticketServices,

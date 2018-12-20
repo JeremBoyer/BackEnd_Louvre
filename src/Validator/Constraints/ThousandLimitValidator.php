@@ -38,7 +38,7 @@ class ThousandLimitValidator extends ConstraintValidator
             );
         $sessionTickets = $this->session->get("tickets");
         $visitors = count($ticketsAtValue) + count($sessionTickets);
-        if ($visitors >= 10) {
+        if ($visitors >= 1000) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }
