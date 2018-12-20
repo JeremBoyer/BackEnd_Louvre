@@ -26,6 +26,13 @@ class TicketServicesTest extends TestCase
         $this->assertEquals($ticket::PRICE_TYPE_BABY, $ticket->getPriceType());
     }
 
+    /**
+     * @covers \App\Services\TicketServices::generatePriceType()
+     * @covers \App\Entity\Ticket::getBirthDate
+     * @covers \App\Entity\Ticket::getPriceType
+     * @covers \App\Entity\Ticket::setBirthDate
+     * @covers \App\Entity\Ticket::setPriceType
+     */
     public function testGeneratePriceTypeToThree()
     {
         $ticketServices = new TicketServices();
@@ -37,6 +44,13 @@ class TicketServicesTest extends TestCase
         $this->assertEquals($ticket::PRICE_TYPE_CHILD, $ticket->getPriceType());
     }
 
+    /**
+     * @covers \App\Services\TicketServices::generatePriceType()
+     * @covers \App\Entity\Ticket::getBirthDate
+     * @covers \App\Entity\Ticket::getPriceType
+     * @covers \App\Entity\Ticket::setBirthDate
+     * @covers \App\Entity\Ticket::setPriceType
+     */
     public function testGeneratePriceTypeToFour()
     {
         $ticketServices = new TicketServices();
@@ -47,6 +61,14 @@ class TicketServicesTest extends TestCase
 
         $this->assertEquals($ticket::PRICE_TYPE_NORMAL, $ticket->getPriceType());
     }
+
+    /**
+     * @covers \App\Services\TicketServices::generatePriceType()
+     * @covers \App\Entity\Ticket::getBirthDate
+     * @covers \App\Entity\Ticket::getPriceType
+     * @covers \App\Entity\Ticket::setBirthDate
+     * @covers \App\Entity\Ticket::setPriceType
+     */
     public function testGeneratePriceTypeToFive()
     {
         $ticketServices = new TicketServices();
@@ -56,6 +78,13 @@ class TicketServicesTest extends TestCase
         $this->assertEquals($ticket::PRICE_TYPE_SENIOR, $ticket->getPriceType());
     }
 
+    /**
+     * @covers \App\Services\TicketServices::generatePriceType()
+     * @covers \App\Entity\Ticket::getBirthDate
+     * @covers \App\Entity\Ticket::getPriceType
+     * @covers \App\Entity\Ticket::setBirthDate
+     * @covers \App\Entity\Ticket::setPriceType
+     */
     public function testGeneratePriceTypeToOne()
     {
         $ticketServices = new TicketServices();
@@ -69,6 +98,14 @@ class TicketServicesTest extends TestCase
     }
 
     // Beginning of deductPrice tests
+
+    /**
+     * @covers \App\Services\TicketServices::deductPrice()
+     * @covers \App\Entity\Ticket::getPriceType
+     * @covers \App\Entity\Ticket::getVisitAt
+     * @covers \App\Entity\Ticket::setPriceType
+     * @covers \App\Entity\Ticket::setVisitAt
+     */
     public function testDeductPriceReduction()
     {
         $ticketServices = new TicketServices();
@@ -79,6 +116,13 @@ class TicketServicesTest extends TestCase
         $this->assertEquals(10, $ticketServices->deductPrice($ticket));
     }
 
+    /**
+     * @covers \App\Services\TicketServices::deductPrice()
+     * @covers \App\Entity\Ticket::getPriceType
+     * @covers \App\Entity\Ticket::getVisitAt
+     * @covers \App\Entity\Ticket::setPriceType
+     * @covers \App\Entity\Ticket::setVisitAt
+     */
     public function testDeductPriceBaby()
     {
         $ticketServices = new TicketServices();
@@ -91,6 +135,13 @@ class TicketServicesTest extends TestCase
         $this->assertEquals(0, $ticketServices->deductPrice($ticket));
     }
 
+    /**
+     * @covers \App\Services\TicketServices::deductPrice()
+     * @covers \App\Entity\Ticket::getPriceType
+     * @covers \App\Entity\Ticket::getVisitAt
+     * @covers \App\Entity\Ticket::setPriceType
+     * @covers \App\Entity\Ticket::setVisitAt
+     */
     public function testDeductPriceChild()
     {
         $ticketServices = new TicketServices();
@@ -102,6 +153,14 @@ class TicketServicesTest extends TestCase
 
         $this->assertEquals(8, $ticketServices->deductPrice($ticket));
     }
+
+    /**
+     * @covers \App\Services\TicketServices::deductPrice()
+     * @covers \App\Entity\Ticket::getPriceType
+     * @covers \App\Entity\Ticket::getVisitAt
+     * @covers \App\Entity\Ticket::setPriceType
+     * @covers \App\Entity\Ticket::setVisitAt
+     */
     public function testDeductPriceNormal()
     {
         $ticketServices = new TicketServices();
@@ -114,6 +173,13 @@ class TicketServicesTest extends TestCase
         $this->assertEquals(16, $ticketServices->deductPrice($ticket));
     }
 
+    /**
+     * @covers \App\Services\TicketServices::deductPrice()
+     * @covers \App\Entity\Ticket::getPriceType
+     * @covers \App\Entity\Ticket::getVisitAt
+     * @covers \App\Entity\Ticket::setPriceType
+     * @covers \App\Entity\Ticket::setVisitAt
+     */
     public function testDeductPriceSenior()
     {
         $ticketServices = new TicketServices();
@@ -126,6 +192,13 @@ class TicketServicesTest extends TestCase
         $this->assertEquals(12, $ticketServices->deductPrice($ticket));
     }
 
+    /**
+     * @covers \App\Services\TicketServices::deductPrice()
+     * @covers \App\Entity\Ticket::getPriceType
+     * @covers \App\Entity\Ticket::getVisitAt
+     * @covers \App\Entity\Ticket::setPriceType
+     * @covers \App\Entity\Ticket::setVisitAt
+     */
     public function testDeductPriceNormalHalfDay()
     {
         $ticketServices = new TicketServices();

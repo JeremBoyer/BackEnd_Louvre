@@ -24,7 +24,7 @@ class MuseumController extends Controller
     /**
      * @Route("/useful", name="useful")
      */
-    public function index()
+    public function useful()
     {
         return $this->render('museum/useful.html.twig');
     }

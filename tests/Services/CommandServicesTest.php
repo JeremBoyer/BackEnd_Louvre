@@ -9,7 +9,12 @@ use Psr\Log\LoggerInterface;
 class CommandServicesTest extends TestCase
 {
     /**
-     * @
+     * @covers \App\Services\CommandServices::createCustomerAndChargeStripe()
+     * @covers \App\Kernel::configureContainer
+     * @covers \App\Kernel::configureRoutes
+     * @covers \App\Kernel::getLogDir
+     * @covers \App\Kernel::getCacheDir
+     * @covers \App\Kernel::registerBundles
      */
     public function testStripeWillCreateCustomer()
     {
@@ -38,6 +43,9 @@ class CommandServicesTest extends TestCase
         $this->assertTrue($mockCommandService->createCustomerAndChargeStripe(1000, $mockLogger));
     }
 
+    /**
+     * @covers \App\Services\CommandServices::createCustomerAndChargeStripe()
+     */
     public function testStripeWillCreateCharge()
     {
         $customerObject = new \stdClass();
@@ -64,7 +72,9 @@ class CommandServicesTest extends TestCase
         $this->assertTrue($mockCommandService->createCustomerAndChargeStripe(1000, $mockLogger));
     }
 
-
+    /**
+     * @covers \App\Services\CommandServices::createCustomerAndChargeStripe()
+     */
     public function testStripeWillNotCreateChargeAndThrowError()
     {
         $mockCommandService = $this->getMockBuilder(CommandServices::class)
