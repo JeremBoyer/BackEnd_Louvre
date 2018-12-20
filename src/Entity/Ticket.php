@@ -30,17 +30,24 @@ class Ticket
      *     minMessage="Votre nom est trop court!",
      *     maxMessage="Votre nom est trop long!"
      * )
-     *
+     * @Assert\NotBlank()
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=2,
+     *      max=255,
+     *     minMessage="Votre prénom est trop court!",
+     *     maxMessage="Votre prénom est trop long!"
+     * )
+     * @Assert\NotBlank()
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $country;
 
@@ -53,11 +60,13 @@ class Ticket
      * @ORM\Column(type="date")
      * @VisitAssert\OpeningDate
      * @VisitAssert\ThousandLimit()
+     * @Assert\NotBlank
      */
     private $visitAt;
 
     /**
      * @ORM\Column(type="date")
+     * @Assert\NotBlank
      */
     private $birthDate;
 
