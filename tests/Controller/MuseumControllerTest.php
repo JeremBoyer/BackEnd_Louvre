@@ -13,9 +13,29 @@ class MuseumControllerTest extends WebTestCase
         $this->client = static::createClient();
     }
 
+    /**
+     * @covers \App\Controller\MuseumController::home()
+     * @covers \App\Kernel::getCacheDir
+     * @covers \App\Kernel::registerBundles
+     */
     public function testHomepageIsUp()
     {
         $this->client->request('GET', '/');
+
+        static::assertEquals(
+            Response::HTTP_OK,
+            $this->client->getResponse()->getStatusCode()
+        );
+    }
+
+    /**
+     * @covers \App\Controller\MuseumController::useful()
+     * @covers \App\Kernel::getCacheDir
+     * @covers \App\Kernel::registerBundles
+     */
+    public function testUsefulIsUp()
+    {
+        $this->client->request('GET', '/useful');
 
         static::assertEquals(
             Response::HTTP_OK,
