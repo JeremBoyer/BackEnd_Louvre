@@ -6,9 +6,9 @@ body {
     /* BackGround image from DBUK on pixabay*/
     background: url('../image/louvre-grande-galerie-aile-denon.jpg');
     background-image: url("../image/louvre-grande-galerie-aile-denon.jpg");
-    background-position-x: 50%;
-    background-position-y: 0px;
-    background-size: initial;
+    background-size: 100% auto;
+    background-position: center top;
+    background-size: cover;
     background-repeat-x: repeat;
     background-repeat-y: no-repeat;
     background-attachment: fixed;
@@ -36,6 +36,7 @@ body {
 .form-control:disabled, .form-control[readonly] {
     background-color: white;
 }
+
 
 /* Table command */
 @media only screen and (max-width: 992px){

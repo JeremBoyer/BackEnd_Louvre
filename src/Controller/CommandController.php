@@ -38,7 +38,6 @@ class CommandController extends Controller
             foreach ($sessionTickets as $ticket) {
                 $numberOfTickets++;
                 $total = $ticketServices->deductPrice($ticket) + $total;
-                dump($sessionTickets, $ticket);
             }
         }
 
@@ -88,20 +87,20 @@ class CommandController extends Controller
      */
     public function confirmation(TicketServices $ticketService, Command $command)
     {
-//        $message = (new \Swift_Message('Louvre : Confirmation de commande'))
-//            ->setFrom('jereboyer08@gmail.com')
-//            ->setTo($_POST['stripeEmail'])
-//            ->setBody(
-//                $this->get('mjml')->render(
-//                    $this->get('twig')->render('email/email.mjml.twig', [
-//                        'tickets' => $command->getTickets(),
-//                        'ticketService' => $ticketService,
-//                        'command' => $command
-//                    ])
-//                ),
-//                'text/html'
-//            );
-//        $this->get('mailer')->send($message);
+        $message = (new \Swift_Message('Louvre : Confirmation de commande'))
+            ->setFrom('jereboyer08@gmail.com')
+            ->setTo($_POST['stripeEmail'])
+            ->setBody(
+                $this->get('mjml')->render(
+                    $this->get('twig')->render('email/email.mjml.twig', [
+                        'tickets' => $command->getTickets(),
+                        'ticketService' => $ticketService,
+                        'command' => $command
+                    ])
+                ),
+                'text/html'
+            );
+        $this->get('mailer')->send($message);
 
         return $this->render('command/confirmation.html.twig');
     }

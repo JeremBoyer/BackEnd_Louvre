@@ -77,7 +77,6 @@ class CommandServices
     }
     public function createNewStripeCustomer()
     {
-        dump('koukou');
         return Customer::create(array(
             'email' => $_POST['stripeEmail'],
             'source'  => $_POST['stripeToken']
